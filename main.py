@@ -4,13 +4,27 @@ import math
 class RCube:
     # initializes cube variables
     def __init__(self):
+        # Constants:
+        self.F = 1
+        self.R = 2
+        self.B = 3
+        self.L = 4
+        self.U = 5
+        self.D = 6
+        # First column of the face
+        self.f_start = (self.F-1)*3
+        self.r_start = (self.R-1)*3
+        self.b_start = (self.B-1)*3
+        self.l_start = (self.L-1)*3
+        self.u_start = (self.U-1)*3
+        self.d_start = (self.D-1)*3
         # Cube Matrix:
         # Holds the current state of the cube; the numbers represent faces.
-        #    1 - F,   2 - B,   3 - R,   4 - L,   5 - U,   6 - D
+        #    1 - F,   2 - R,   3 - B,   4 - L,   5 - U,   6 - D
         self.cube_mat = [
             [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6],
-            [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6],
-            [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6]
+            [2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6],
+            [3, 3, 3, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6]
         ]
         # Fitness Matrix: Holds the current fitness of each square on the cube.
         # If correct, holds 1; if not correct, holds 0. 
@@ -19,9 +33,12 @@ class RCube:
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         ]
+    # Print Cube
     def print_cube(self):
         for i in range(0, 3):
             print(self.cube_mat[i])
+        print()
+    # Calculate Fitness
     # Fills the fitness matrix and returns the sum of all values in the matrix.
     def calc_fit(self):
         fitness = 0
@@ -79,35 +96,42 @@ class RCube:
     # Left Horizontal Rotation:
     def left_horiz_rot(self, row):
         front_row = [self.cube_mat[row][0], self.cube_mat[row][1], self.cube_mat[row][2]]
-        self.copy_row(row, 3, 1)
-        self.copy_row(row, 2, 3)
-        self.copy_row(row, 4, 2)
+        self.copy_row(row, 2, 1)
+        self.copy_row(row, 3, 2)
+        self.copy_row(row, 4, 3)
         for i in range(0, 3):
             self.cube_mat[row][9 + i] = front_row[i]
     # Right Horizontal Rotation:
     def right_horiz_rot(self, row):
         front_row = [self.cube_mat[row][0], self.cube_mat[row][1], self.cube_mat[row][2]]
         self.copy_row(row, 4, 1)
-        self.copy_row(row, 2, 4)
-        self.copy_row(row, 3, 2)
+        self.copy_row(row, 3, 4)
+        self.copy_row(row, 2, 3)
         for i in range(0, 3):
-            self.cube_mat[row][6 + i] = front_row[i]
+            self.cube_mat[row][3 + i] = front_row[i]
     # Up Vertical Rotation:
     def up_vert_rot(self, col):
         front_col = [self.cube_mat[0][col], self.cube_mat[1][col], self.cube_mat[2][col]]
-        self.copy_col(col, 6, 1)
-        self.copy_col(col, 2, 6)
-        self.copy_col(col, 5, 2)
         for i in range(0, 3):
-            self.cube_mat[i][12 + col] = front_col[i]
+            self.cube_mat[i][self.f_start + col] = self.cube_mat[i][self.d_start + col]
+        for i in range(0, 3):
+            self.cube_mat[i][self.d_start + col] = self.cube_mat[2 - i][self.b_start + col]
+        for i in range(0, 3):
+            self.cube_mat[i][self.b_start + col] = self.cube_mat[2 - i][self.u_start + col]
+        for i in range(0, 3):
+            self.cube_mat[i][self.u_start + col] = front_col[i]
     # Down Vertical Rotation:
     def down_vert_rot(self, col):
         front_col = [self.cube_mat[0][col], self.cube_mat[1][col], self.cube_mat[2][col]]
-        self.copy_col(col, 5, 1)
-        self.copy_col(col, 2, 5)
-        self.copy_col(col, 6, 2)
         for i in range(0, 3):
-            self.cube_mat[i][15 + col] = front_col[i]
+            self.cube_mat[i][self.f_start + col] = self.cube_mat[i][self.u_start + col]
+        for i in range(0, 3):
+            self.cube_mat[i][self.u_start + col] = self.cube_mat[2 - i][self.b_start + col]
+        for i in range(0, 3):
+            self.cube_mat[i][self.b_start + col] = self.cube_mat[2 - i][self.d_start + col]
+        for i in range(0, 3):
+            self.cube_mat[i][self.d_start + col] = front_col[i]
+    # ============================================================
     # Clockwise Vertical Rotation:
     def c_vert_rot(self, col):
         right_col = [self.cube_mat[0][6 + col], self.cube_mat[1][6 + col], self.cube_mat[2][6 + col]]
@@ -133,6 +157,16 @@ class RCube:
         elif op == 'U-':
             self.rotatef_cc(5)
             self.right_horiz_rot(0)
+        elif op == 'D':
+            self.rotatef_c(6)
+            self.right_horiz_rot(2)
+        elif op == 'D-':
+            self.rotatef_cc(6)
+            self.left_horiz_rot(2)
+        elif op == 'E':
+            self.right_horiz_rot(1)
+        elif op == "E-":
+            self.left_horiz_rot(1)
         elif op == 'R':
             self.rotatef_c(3)
             self.up_vert_rot(2)
@@ -145,12 +179,6 @@ class RCube:
         elif op == 'F-':
             self.rotatef_cc(1)
             self.cc_vert_rot(0)
-        elif op == 'D':
-            self.rotatef_c(6)
-            self.right_horiz_rot(2)
-        elif op == 'D-':
-            self.rotatef_cc(6)
-            self.left_horiz_rot(2)
         elif op == 'L':
             self.rotatef_c(4)
             self.down_vert_rot(0)
@@ -167,10 +195,6 @@ class RCube:
             self.down_vert_rot(1)
         elif op == 'M-':
             self.up_vert_rot(1)
-        elif op == 'E':
-            self.right_horiz_rot(1)
-        elif op == "E-":
-            self.left_horiz_rot(1)
         elif op == 'S':
             self.c_vert_rot(1)
         elif op == 'S-':
@@ -185,8 +209,10 @@ class RCube:
 # some tests
 my_cube = RCube()
 print(my_cube.calc_fit())
-my_cube.rotate('B')
 my_cube.print_cube()
+for z in range(0, 4):
+    my_cube.down_vert_rot(2)
+    my_cube.print_cube()
 print(my_cube.calc_fit())
 
 
