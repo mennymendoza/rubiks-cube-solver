@@ -108,6 +108,12 @@ class RCube:
         self.copy_col(col, 6, 2)
         for i in range(0, 3):
             self.cube_mat[i][15 + col] = front_col[i]
+    # Clockwise Vertical Rotation:
+    def c_vert_rot(self, col):
+        pass # derp
+    def cc_vert_rot(self, col):
+        pass # double derp
+    # Counter-clockwise Vertical Rotation:
     # Full Rotation Function
     # http://www.rubiksplace.com/move-notations/
     def rotate(self, op):
