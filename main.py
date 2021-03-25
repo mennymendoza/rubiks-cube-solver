@@ -175,12 +175,18 @@ class RCube:
             self.c_vert_rot(1)
         elif op == 'S-':
             self.cc_vert_rot(1)
+        else:
+            print("Invalid Operation")
+    def perform(self, op_list):
+        for op in op_list:
+            self.rotate(op)
 # end class
 
 # some tests
 my_cube = RCube()
 print(my_cube.calc_fit())
-my_cube.cc_vert_rot(0)
+my_cube.rotate('B')
 my_cube.print_cube()
+print(my_cube.calc_fit())
 
 
