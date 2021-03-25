@@ -26,6 +26,8 @@ class RCube:
                 self.fit_mat[i][j] = (self.cube_mat[i][j] == math.ceil((j + 1) / 3))
                 fitness += self.fit_mat[i][j]
         return fitness
+    def rotate(self, op):
+        pass
 # end class
 
 # some tests
