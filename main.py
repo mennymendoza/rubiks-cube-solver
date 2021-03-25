@@ -1,5 +1,6 @@
 import math
 
+# Rubix Cube class to hold information about cube and perform operations
 class RCube:
     # initializes cube variables
     def __init__(self):
@@ -27,5 +28,6 @@ class RCube:
         return fitness
 # end class
 
+# some tests
 my_cube = RCube()
 print(my_cube.calc_fit())
