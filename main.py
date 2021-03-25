@@ -9,8 +9,8 @@ class RCube:
         #    1 - F,   2 - B,   3 - R,   4 - L,   5 - U,   6 - D
         self.cube_mat = [
             [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 1, 2, 3, 1, 2, 3],
-            [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6],
-            [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6]
+            [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 8, 5, 4, 8, 6, 4],
+            [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 7, 6, 5, 7, 6, 5]
         ]
         # Fitness Matrix: Holds the current fitness of each square on the cube.
         # If correct, holds 1; if not correct, holds 0. 
@@ -19,6 +19,9 @@ class RCube:
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         ]
+    def print_cube(self):
+        for i in range(0, 3):
+            print(self.cube_mat[i])
     # Fills the fitness matrix and returns the sum of all values in the matrix.
     def calc_fit(self):
         fitness = 0
@@ -96,9 +99,7 @@ class RCube:
 # some tests
 my_cube = RCube()
 print(my_cube.calc_fit())
-my_cube.rotate('D-')
-print(my_cube.cube_mat)
+my_cube.rotate('E-')
+my_cube.print_cube()
 
-# [[1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 1, 2, 3, 3, 6, 6],
-# [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 2, 6, 6],
-# [3, 3, 3, 4, 4, 4, 2, 2, 2, 1, 1, 1, 5, 5, 5, 1, 6, 6]]
+
