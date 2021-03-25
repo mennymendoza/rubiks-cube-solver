@@ -68,9 +68,14 @@ class RCube:
         base2 = (face2 - 1)*3
         for i in range(0,3):
             self.cube_mat[row][base2+i] = self.cube_mat[row][base1+i]
+    # Copy Column: Copies a column from face1 to face2.
+    # Columns are numbered from 0 to 2.
     def copy_col(self, col, face1, face2):
-        pass # do not
-    # Left Horizontal Rotation: 
+        base1 = (face1 - 1)*3
+        base2 = (face2 - 1)*3
+        for i in range(0,3):
+            self.cube_mat[i][base2+col] = self.cube_mat[i][base1+col]
+    # Left Horizontal Rotation:
     def left_horiz_rot(self, row):
         top_front_row = [self.cube_mat[row][0], self.cube_mat[row][1], self.cube_mat[row][2]]
         self.copy_row(row, 3, 1)
@@ -99,7 +104,6 @@ class RCube:
 # some tests
 my_cube = RCube()
 print(my_cube.calc_fit())
-my_cube.rotate('E-')
 my_cube.print_cube()
 
 
