@@ -84,12 +84,18 @@ class RCube:
         for i in range(0, 3):
             self.cube_mat[row][9 + i] = top_front_row[i]
     def right_horiz_rot(self, row):
-        pass # fuck
+        top_front_row = [self.cube_mat[row][0], self.cube_mat[row][1], self.cube_mat[row][2]]
+        self.copy_row(row, 4, 1)
+        self.copy_row(row, 2, 4)
+        self.copy_row(row, 3, 2)
+        for i in range(0, 3):
+            self.cube_mat[row][6 + i] = top_front_row[i]
     def up_vert_rot(self, col):
         pass # lol
     def down_vert_rot(self, col):
         pass # lol
     # Full Rotation Function
+    # http://www.rubiksplace.com/move-notations/
     def rotate(self, op):
         if op == 'U':
             self.rotatef_c(5)
@@ -104,6 +110,7 @@ class RCube:
 # some tests
 my_cube = RCube()
 print(my_cube.calc_fit())
+my_cube.right_horiz_rot(2)
 my_cube.print_cube()
 
 
