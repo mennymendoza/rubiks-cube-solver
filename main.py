@@ -134,15 +134,18 @@ class RCube:
     # ============================================================
     # Clockwise Vertical Rotation
     def c_vert_rot(self, col):
-        right_col = [self.cube_mat[0][6 + col], self.cube_mat[1][6 + col], self.cube_mat[2][6 + col]]
-        self.copy_col(col, 5, 3)
-        self.copy_col(col, 4, 5)
-        self.copy_col(col, 6, 4)
+        right_col = [self.cube_mat[0][self.r_start + col], self.cube_mat[1][self.r_start + col], self.cube_mat[2][self.r_start + col]]
         for i in range(0, 3):
-            self.cube_mat[i][15 + col] = right_col[i]
+            self.cube_mat[i][self.r_start + col] = self.cube_mat[2][self.u_start + i]
+        for i in range(0, 3):
+            self.cube_mat[2][self.u_start + i] = self.cube_mat[2 - i][self.l_start + (2 - col)]
+        for i in range(0, 3):
+            self.cube_mat[i][self.l_start + (2 - col)] = self.cube_mat[col][self.d_start + i]
+        for i in range(0, 3):
+            self.cube_mat[0][self.d_start + i] = right_col[2 - i]
     # Counter-clockwise Vertical Rotation
     def cc_vert_rot(self, col):
-        right_col = [self.cube_mat[0][6 + col], self.cube_mat[1][6 + col], self.cube_mat[2][6 + col]]
+        right_col = [self.cube_mat[0][self.r_start + col], self.cube_mat[1][self.r_start + col], self.cube_mat[2][self.r_start + col]]
         self.copy_col(col, 6, 3)
         self.copy_col(col, 4, 6)
         self.copy_col(col, 5, 4)
