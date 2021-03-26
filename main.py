@@ -47,7 +47,7 @@ class RCube:
                 self.fit_mat[i][j] = (self.cube_mat[i][j] == math.ceil((j + 1) / 3))
                 fitness += self.fit_mat[i][j]
         return fitness
-    # Rotate Face Counter-clockwise
+    # Rotate Face Counter-Clockwise
     def rotatef_cc(self, face):
         if face < 1 or face > 6:
             print("invalid face")
@@ -79,21 +79,21 @@ class RCube:
         self.cube_mat[1][base + 2] = self.cube_mat[0][base + 1]
         self.cube_mat[0][base + 2] = temp1
         self.cube_mat[0][base + 1] = temp2
-    # Copy Row: Copies a row from face1 to face2
-    # Rows are numbered from 0 to 2.
+    # Copy Row
+    # Copies a row from face1 to face2. Rows are numbered from 0 to 2.
     def copy_row(self, row, face1, face2):
         base1 = (face1 - 1)*3
         base2 = (face2 - 1)*3
         for i in range(0,3):
             self.cube_mat[row][base2+i] = self.cube_mat[row][base1+i]
-    # Copy Column: Copies a column from face1 to face2.
-    # Columns are numbered from 0 to 2.
+    # Copy Column
+    # Copies a column from face1 to face2. Columns are numbered from 0 to 2.
     def copy_col(self, col, face1, face2):
         base1 = (face1 - 1)*3
         base2 = (face2 - 1)*3
         for i in range(0,3):
             self.cube_mat[i][base2+col] = self.cube_mat[i][base1+col]
-    # Left Horizontal Rotation:
+    # Left Horizontal Rotation
     def left_horiz_rot(self, row):
         front_row = [self.cube_mat[row][0], self.cube_mat[row][1], self.cube_mat[row][2]]
         self.copy_row(row, 2, 1)
@@ -101,7 +101,7 @@ class RCube:
         self.copy_row(row, 4, 3)
         for i in range(0, 3):
             self.cube_mat[row][9 + i] = front_row[i]
-    # Right Horizontal Rotation:
+    # Right Horizontal Rotation
     def right_horiz_rot(self, row):
         front_row = [self.cube_mat[row][0], self.cube_mat[row][1], self.cube_mat[row][2]]
         self.copy_row(row, 4, 1)
@@ -109,7 +109,7 @@ class RCube:
         self.copy_row(row, 2, 3)
         for i in range(0, 3):
             self.cube_mat[row][3 + i] = front_row[i]
-    # Up Vertical Rotation:
+    # Up Vertical Rotation
     def up_vert_rot(self, col):
         front_col = [self.cube_mat[0][col], self.cube_mat[1][col], self.cube_mat[2][col]]
         for i in range(0, 3):
@@ -120,7 +120,7 @@ class RCube:
             self.cube_mat[i][self.b_start + col] = self.cube_mat[2 - i][self.u_start + col]
         for i in range(0, 3):
             self.cube_mat[i][self.u_start + col] = front_col[i]
-    # Down Vertical Rotation:
+    # Down Vertical Rotation
     def down_vert_rot(self, col):
         front_col = [self.cube_mat[0][col], self.cube_mat[1][col], self.cube_mat[2][col]]
         for i in range(0, 3):
@@ -132,7 +132,7 @@ class RCube:
         for i in range(0, 3):
             self.cube_mat[i][self.d_start + col] = front_col[i]
     # ============================================================
-    # Clockwise Vertical Rotation:
+    # Clockwise Vertical Rotation
     def c_vert_rot(self, col):
         right_col = [self.cube_mat[0][6 + col], self.cube_mat[1][6 + col], self.cube_mat[2][6 + col]]
         self.copy_col(col, 5, 3)
@@ -140,6 +140,7 @@ class RCube:
         self.copy_col(col, 6, 4)
         for i in range(0, 3):
             self.cube_mat[i][15 + col] = right_col[i]
+    # Counter-clockwise Vertical Rotation
     def cc_vert_rot(self, col):
         right_col = [self.cube_mat[0][6 + col], self.cube_mat[1][6 + col], self.cube_mat[2][6 + col]]
         self.copy_col(col, 6, 3)
@@ -147,7 +148,6 @@ class RCube:
         self.copy_col(col, 5, 4)
         for i in range(0, 3):
             self.cube_mat[i][12 + col] = right_col[i]
-    # Counter-clockwise Vertical Rotation:
     # Full Rotation Function
     # http://www.rubiksplace.com/move-notations/
     def rotate(self, op):
@@ -201,7 +201,8 @@ class RCube:
             self.cc_vert_rot(1)
         else:
             print("Invalid Operation")
-    def perform(self, op_list):
+    # Run List
+    def run_list(self, op_list):
         for op in op_list:
             self.rotate(op)
 # end class
