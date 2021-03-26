@@ -160,9 +160,6 @@ class RCube:
         if op == 'U':
             self.rotatef_c(5)
             self.left_horiz_rot(0)
-        elif op == 'U-':
-            self.rotatef_cc(5)
-            self.right_horiz_rot(0)
         else:
             print("Invalid Operation")
     # Run List
@@ -175,10 +172,5 @@ class RCube:
 my_cube = RCube()
 print(my_cube.calc_fit())
 my_cube.print_cube()
-for x in range(0, 3):
-    print('Iteration:', x)
-    for y in range(0, 4):
-        my_cube.cc_vert_rot(x)
-        my_cube.print_cube()
 
 
