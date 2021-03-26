@@ -22,9 +22,9 @@ class RCube:
         # Holds the current state of the cube; the numbers represent faces.
         #    1 - F,   2 - R,   3 - B,   4 - L,   5 - U,   6 - D
         self.cube_mat = [
+            [1, 1, 1, 1, 1, 1, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6],
             [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6],
-            [2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6],
-            [3, 3, 3, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6]
+            [1, 1, 1, 3, 3, 3, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6]
         ]
         # Fitness Matrix: Holds the current fitness of each square on the cube.
         # If correct, holds 1; if not correct, holds 0. 
@@ -136,21 +136,16 @@ class RCube:
     def c_vert_rot(self, col):
         right_col = [self.cube_mat[0][self.r_start + col], self.cube_mat[1][self.r_start + col], self.cube_mat[2][self.r_start + col]]
         for i in range(0, 3):
-            self.cube_mat[i][self.r_start + col] = self.cube_mat[2][self.u_start + i]
+            self.cube_mat[i][self.r_start + col] = self.cube_mat[2 - col][self.u_start + i]
         for i in range(0, 3):
-            self.cube_mat[2][self.u_start + i] = self.cube_mat[2 - i][self.l_start + (2 - col)]
+            self.cube_mat[2 - col][self.u_start + i] = self.cube_mat[2 - i][self.l_start + (2 - col)]
         for i in range(0, 3):
             self.cube_mat[i][self.l_start + (2 - col)] = self.cube_mat[col][self.d_start + i]
         for i in range(0, 3):
-            self.cube_mat[0][self.d_start + i] = right_col[2 - i]
+            self.cube_mat[col][self.d_start + i] = right_col[2 - i]
     # Counter-clockwise Vertical Rotation
     def cc_vert_rot(self, col):
         right_col = [self.cube_mat[0][self.r_start + col], self.cube_mat[1][self.r_start + col], self.cube_mat[2][self.r_start + col]]
-        self.copy_col(col, 6, 3)
-        self.copy_col(col, 4, 6)
-        self.copy_col(col, 5, 4)
-        for i in range(0, 3):
-            self.cube_mat[i][12 + col] = right_col[i]
     # Full Rotation Function
     # http://www.rubiksplace.com/move-notations/
     def rotate(self, op):
@@ -214,8 +209,17 @@ class RCube:
 my_cube = RCube()
 print(my_cube.calc_fit())
 my_cube.print_cube()
+print(0, 'th iteration')
 for z in range(0, 4):
-    my_cube.down_vert_rot(2)
+    my_cube.c_vert_rot(0)
+    my_cube.print_cube()
+print(1, 'st iteration')
+for z in range(0, 4):
+    my_cube.c_vert_rot(1)
+    my_cube.print_cube()
+print(2, 'nd iteration')
+for z in range(0, 4):
+    my_cube.c_vert_rot(2)
     my_cube.print_cube()
 print(my_cube.calc_fit())
 
