@@ -146,6 +146,14 @@ class RCube:
     # Counter-clockwise Vertical Rotation
     def cc_vert_rot(self, col):
         right_col = [self.cube_mat[0][self.r_start + col], self.cube_mat[1][self.r_start + col], self.cube_mat[2][self.r_start + col]]
+        for i in range(0, 3):
+            self.cube_mat[i][self.r_start + col] = self.cube_mat[col][self.d_start + (2 - i)]
+        for i in range(0, 3):
+            self.cube_mat[col][self.d_start + i] = self.cube_mat[i][self.l_start + (2 - col)]
+        for i in range(0, 3): # current
+            self.cube_mat[i][self.l_start + (2 - col)] = self.cube_mat[2 - col][self.u_start + (2 - i)]
+        for i in range(0, 3):
+            self.cube_mat[2 - col][self.u_start + i] = right_col[i]
     # Full Rotation Function
     # http://www.rubiksplace.com/move-notations/
     def rotate(self, op):
@@ -155,48 +163,6 @@ class RCube:
         elif op == 'U-':
             self.rotatef_cc(5)
             self.right_horiz_rot(0)
-        elif op == 'D':
-            self.rotatef_c(6)
-            self.right_horiz_rot(2)
-        elif op == 'D-':
-            self.rotatef_cc(6)
-            self.left_horiz_rot(2)
-        elif op == 'E':
-            self.right_horiz_rot(1)
-        elif op == "E-":
-            self.left_horiz_rot(1)
-        elif op == 'R':
-            self.rotatef_c(3)
-            self.up_vert_rot(2)
-        elif op == 'R-':
-            self.rotatef_cc(3)
-            self.down_vert_rot(2)
-        elif op == 'F':
-            self.rotatef_c(1)
-            self.c_vert_rot(0)
-        elif op == 'F-':
-            self.rotatef_cc(1)
-            self.cc_vert_rot(0)
-        elif op == 'L':
-            self.rotatef_c(4)
-            self.down_vert_rot(0)
-        elif op == 'L-':
-            self.rotatef_cc(4)
-            self.up_vert_rot(0)
-        elif op == 'B':
-            self.rotatef_c(2)
-            self.cc_vert_rot(2)
-        elif op == 'B-':
-            self.rotatef_cc(2)
-            self.c_vert_rot(2)
-        elif op == 'M':
-            self.down_vert_rot(1)
-        elif op == 'M-':
-            self.up_vert_rot(1)
-        elif op == 'S':
-            self.c_vert_rot(1)
-        elif op == 'S-':
-            self.cc_vert_rot(1)
         else:
             print("Invalid Operation")
     # Run List
@@ -209,18 +175,10 @@ class RCube:
 my_cube = RCube()
 print(my_cube.calc_fit())
 my_cube.print_cube()
-print(0, 'th iteration')
-for z in range(0, 4):
-    my_cube.c_vert_rot(0)
-    my_cube.print_cube()
-print(1, 'st iteration')
-for z in range(0, 4):
-    my_cube.c_vert_rot(1)
-    my_cube.print_cube()
-print(2, 'nd iteration')
-for z in range(0, 4):
-    my_cube.c_vert_rot(2)
-    my_cube.print_cube()
-print(my_cube.calc_fit())
+for x in range(0, 3):
+    print('Iteration:', x)
+    for y in range(0, 4):
+        my_cube.cc_vert_rot(x)
+        my_cube.print_cube()
 
 
