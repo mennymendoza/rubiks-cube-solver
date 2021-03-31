@@ -22,9 +22,9 @@ class RCube:
         # Holds the current state of the cube; the numbers represent faces.
         #    1 - F,   2 - R,   3 - B,   4 - L,   5 - U,   6 - D
         self.cube_mat = [
-            [1, 1, 1, 1, 1, 1, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6],
             [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6],
-            [1, 1, 1, 3, 3, 3, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6]
+            [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6],
+            [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6]
         ]
         # Fitness Matrix: Holds the current fitness of each square on the cube.
         # If correct, holds 1; if not correct, holds 0. 
