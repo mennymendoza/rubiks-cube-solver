@@ -160,8 +160,53 @@ class RCube:
         if op == 'U':
             self.rotatef_c(5)
             self.left_horiz_rot(0)
+        elif op == 'U-':
+            self.rotatef_cc(5)
+            self.right_horiz_rot(0)
+        elif op == 'E':
+            self.right_horiz_rot(1)
+        elif op == 'E-':
+            self.left_horiz_rot(1)
+        elif op == 'D':
+            self.rotatef_c(6)
+            self.right_horiz_rot(2)
+        elif op == 'D-':
+            self.rotatef_cc(6)
+            self.left_horiz_rot(2)
+        elif op == 'R':
+            self.rotatef_c(2)
+            self.up_vert_rot(2)
+        elif op == 'R-':
+            self.rotatef_cc(2)
+            self.down_vert_rot(2)
+        elif op == 'L':
+            self.rotatef_c(4)
+            self.down_vert_rot(0)
+        elif op == 'L-':
+            self.rotatef_cc(4)
+            self.up_vert_rot(0)
+        elif op == 'M':
+            self.down_vert_rot(1)
+        elif op == 'M-':
+            self.up_vert_rot(1)
+        elif op == 'F':
+            self.rotatef_c(1)
+            self.c_vert_rot(0)
+        elif op == 'F-':
+            self.rotatef_cc(1)
+            self.cc_vert_rot(0)
+        elif op == 'B':
+            self.rotatef_c(3)
+            self.cc_vert_rot(2)
+        elif op == 'B-':
+            self.rotatef_cc(3)
+            self.c_vert_rot(2)
+        elif op == 'S':
+            self.c_vert_rot(1)
+        elif op == 'S-':
+            self.cc_vert_rot(1)
         else:
-            print("Invalid Operation")
+            print(op, "is an invalid operation")
     # Run List
     def run_list(self, op_list):
         for op in op_list:
@@ -171,6 +216,8 @@ class RCube:
 # some tests
 my_cube = RCube()
 print(my_cube.calc_fit())
+my_list = ['U', 'R', 'L' , 'D', 'F', 'B', 'F-', 'R-', 'L-', 'B-', 'D-', 'U-', 'S', 'E', 'M', 'S-', 'M-', 'E-']
+my_cube.run_list(my_list)
 my_cube.print_cube()
 
 
