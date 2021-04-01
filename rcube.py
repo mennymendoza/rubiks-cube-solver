@@ -132,7 +132,6 @@ class RCube:
             self.cube_mat[i][self.b_start + (2 - col)] = self.cube_mat[2 - i][self.d_start + col]
         for i in range(0, 3):
             self.cube_mat[i][self.d_start + col] = front_col[i]
-    # ============================================================
     # Clockwise Vertical Rotation
     def c_vert_rot(self, col):
         right_col = [self.cube_mat[0][self.r_start + col], self.cube_mat[1][self.r_start + col], self.cube_mat[2][self.r_start + col]]
@@ -156,7 +155,8 @@ class RCube:
         for i in range(0, 3):
             self.cube_mat[2 - col][self.u_start + i] = right_col[i]
     # Full Rotation Function
-    # http://www.rubiksplace.com/move-notations/
+    # This is the function that you should actually use to move the cube around.
+    # See move notation link in README.md for how different moves affect the cube.
     def rotate(self, op):
         if op == 'U' or op == 0:
             print('U')
@@ -231,6 +231,8 @@ class RCube:
         for op in op_list:
             self.rotate(op)
             self.print_colors()
+    # Print Colors
+    # Assumes Red = 1, Yellow = 2, Orange = 3, White = 4, Blue = 5, and Green = 6
     def print_colors(self):
         # this function is for testing only
         for i in range(0, 3):
@@ -250,6 +252,9 @@ class RCube:
             print()
         print()
 # end class
+
+
+
 
 # some tests
 my_cube = RCube()
