@@ -33,7 +33,7 @@ class RCube:
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         ]
-    # Print Cube
+    # Reset Cube
     def reset(self):
         self.cube_mat = [
             [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6],
@@ -45,6 +45,7 @@ class RCube:
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         ]
+    # Print Cube
     def print_cube(self):
         for i in range(0, 3):
             print(self.cube_mat[i])
