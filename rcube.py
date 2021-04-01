@@ -171,76 +171,58 @@ class RCube:
     # See move notation link in README.md for how different moves affect the cube.
     def rotate(self, op):
         if op == 'U' or op == 0:
-            print('U')
             self.rotatef_c(5)
             self.left_horiz_rot(0)
         elif op == '-U' or op == 1:
-            print('-U')
             self.rotatef_cc(5)
             self.right_horiz_rot(0)
         elif op == 'E' or op == 2:
-            print('E')
             self.right_horiz_rot(1)
         elif op == '-E' or op == 3:
-            print('-E')
             self.left_horiz_rot(1)
         elif op == 'D' or op == 4:
-            print('D')
             self.rotatef_c(6)
             self.right_horiz_rot(2)
         elif op == '-D' or op == 5:
-            print('-D')
             self.rotatef_cc(6)
             self.left_horiz_rot(2)
         elif op == 'R' or op == 6:
-            print('R')
             self.rotatef_c(2)
             self.up_vert_rot(2)
         elif op == '-R' or op == 7:
-            print('-R')
             self.rotatef_cc(2)
             self.down_vert_rot(2)
         elif op == 'L' or op == 8:
-            print('L')
             self.rotatef_c(4)
             self.down_vert_rot(0)
         elif op == '-L' or op == 9:
-            print('-L')
             self.rotatef_cc(4)
             self.up_vert_rot(0)
         elif op == 'M' or op == 10:
-            print('M')
             self.down_vert_rot(1)
         elif op == '-M' or op == 11:
-            print('-M')
             self.up_vert_rot(1)
         elif op == 'F' or op == 12:
-            print('F')
             self.rotatef_c(1)
             self.c_vert_rot(0)
         elif op == '-F' or op == 13:
-            print('-F')
             self.rotatef_cc(1)
             self.cc_vert_rot(0)
         elif op == 'B' or op == 14:
-            print('B')
             self.rotatef_c(3)
             self.cc_vert_rot(2)
         elif op == '-B' or op == 15:
-            print('-B')
             self.rotatef_cc(3)
             self.c_vert_rot(2)
         elif op == 'S' or op == 16:
-            print('S')
             self.c_vert_rot(1)
         elif op == '-S' or op == 17:
-            print('-S')
             self.cc_vert_rot(1)
         else:
             print(op, "is an invalid operation")
     # Run List
     # Runs a list of operations, returning the fitness of the final state. Resets
-    # the cube before returning.
+    # the cube.
     def run_list(self, op_list):
         for op in op_list:
             self.rotate(op)
