@@ -238,7 +238,6 @@ class RCube:
         else:
             print(op, "is an invalid operation")
     # Run List
-    
     def run_list(self, op_list):
         for op in op_list:
             self.rotate(op)
