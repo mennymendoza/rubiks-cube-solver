@@ -33,32 +33,6 @@ class RCube:
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         ]
-    # Reset Cube
-    def reset(self):
-        self.cube_mat = [
-            [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6],
-            [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6],
-            [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6]
-        ]
-        self.fit_mat = [
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-        ]
-    # Print Cube
-    def print_cube(self):
-        for i in range(0, 3):
-            print(self.cube_mat[i])
-        print()
-    # Calculate Fitness
-    # Fills the fitness matrix and returns the sum of all values in the matrix.
-    def calc_fit(self):
-        fitness = 0
-        for i in range(0, 3):
-            for j in range(0, 18):
-                self.fit_mat[i][j] = (self.cube_mat[i][j] == math.ceil((j + 1) / 3))
-                fitness += self.fit_mat[i][j]
-        return fitness
     # Rotate Face Counter-Clockwise
     def rotatef_cc(self, face):
         if face < 1 or face > 6:
@@ -165,6 +139,33 @@ class RCube:
             self.cube_mat[i][self.l_start + (2 - col)] = self.cube_mat[2 - col][self.u_start + (2 - i)]
         for i in range(0, 3):
             self.cube_mat[2 - col][self.u_start + i] = right_col[i]
+    # ================== Public Code ===========================================
+    # Reset Cube
+    def reset(self):
+        self.cube_mat = [
+            [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6],
+            [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6],
+            [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6]
+        ]
+        self.fit_mat = [
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        ]
+    # Print Cube
+    def print_cube(self):
+        for i in range(0, 3):
+            print(self.cube_mat[i])
+        print()
+    # Calculate Fitness
+    # Fills the fitness matrix and returns the sum of all values in the matrix.
+    def calc_fit(self):
+        fitness = 0
+        for i in range(0, 3):
+            for j in range(0, 18):
+                self.fit_mat[i][j] = (self.cube_mat[i][j] == math.ceil((j + 1) / 3))
+                fitness += self.fit_mat[i][j]
+        return fitness
     # Full Rotation Function
     # This is the function that you should actually use to move the cube around.
     # See move notation link in README.md for how different moves affect the cube.
