@@ -238,10 +238,14 @@ class RCube:
         else:
             print(op, "is an invalid operation")
     # Run List
+    # Runs a list of operations, returning the fitness of the final state. Resets
+    # the cube before returning.
     def run_list(self, op_list):
         for op in op_list:
             self.rotate(op)
-            self.print_colors()
+        fitness = self.calc_fit()
+        self.reset()
+        return fitness
     # Print Colors
     # Assumes Red = 1, Yellow = 2, Orange = 3, White = 4, Blue = 5, and Green = 6
     def print_colors(self):
