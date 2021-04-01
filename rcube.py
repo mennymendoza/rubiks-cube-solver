@@ -1,5 +1,4 @@
 import math
-import random
 
 # Rubix Cube class to hold information about cube and perform operations
 class RCube:
