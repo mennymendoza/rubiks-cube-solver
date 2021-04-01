@@ -1,4 +1,5 @@
 import math
+import random
 
 # Rubix Cube class to hold information about cube and perform operations
 class RCube:
@@ -160,50 +161,50 @@ class RCube:
         if op == 'U' or op == 0:
             self.rotatef_c(5)
             self.left_horiz_rot(0)
-        elif op == 'U-' or op == 1:
+        elif op == '-U' or op == 1:
             self.rotatef_cc(5)
             self.right_horiz_rot(0)
         elif op == 'E' or op == 2:
             self.right_horiz_rot(1)
-        elif op == 'E-' or op == 3:
+        elif op == '-E' or op == 3:
             self.left_horiz_rot(1)
         elif op == 'D' or op == 4:
             self.rotatef_c(6)
             self.right_horiz_rot(2)
-        elif op == 'D-' or op == 5:
+        elif op == '-D' or op == 5:
             self.rotatef_cc(6)
             self.left_horiz_rot(2)
         elif op == 'R' or op == 6:
             self.rotatef_c(2)
             self.up_vert_rot(2)
-        elif op == 'R-' or op == 7:
+        elif op == '-R' or op == 7:
             self.rotatef_cc(2)
             self.down_vert_rot(2)
         elif op == 'L' or op == 8:
             self.rotatef_c(4)
             self.down_vert_rot(0)
-        elif op == 'L-' or op == 9:
+        elif op == '-L' or op == 9:
             self.rotatef_cc(4)
             self.up_vert_rot(0)
         elif op == 'M' or op == 10:
             self.down_vert_rot(1)
-        elif op == 'M-' or op == 11:
+        elif op == '-M' or op == 11:
             self.up_vert_rot(1)
         elif op == 'F' or op == 12:
             self.rotatef_c(1)
             self.c_vert_rot(0)
-        elif op == 'F-' or op == 13:
+        elif op == '-F' or op == 13:
             self.rotatef_cc(1)
             self.cc_vert_rot(0)
         elif op == 'B' or op == 14:
             self.rotatef_c(3)
             self.cc_vert_rot(2)
-        elif op == 'B-' or op == 15:
+        elif op == '-B' or op == 15:
             self.rotatef_cc(3)
             self.c_vert_rot(2)
         elif op == 'S' or op == 16:
             self.c_vert_rot(1)
-        elif op == 'S-' or op == 17:
+        elif op == '-S' or op == 17:
             self.cc_vert_rot(1)
         else:
             print(op, "is an invalid operation")
@@ -236,6 +237,8 @@ class RCube:
 # some tests
 my_cube = RCube()
 print(my_cube.calc_fit())
-my_list = ['U', 'R', 'L' , 'D', 'F', 'B', 'F-', 'R-', 'L-', 'B-', 'D-', 'U-', 'S', 'E', 'M', 'S-', 'M-', 'E-']
+my_list = []
+for z in range(0, 5):
+    my_list.append(random.randrange(0, 18))
 my_cube.run_list(my_list)
 
