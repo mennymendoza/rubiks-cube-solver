@@ -115,9 +115,9 @@ class RCube:
         for i in range(0, 3):
             self.cube_mat[i][self.f_start + col] = self.cube_mat[i][self.d_start + col]
         for i in range(0, 3):
-            self.cube_mat[i][self.d_start + col] = self.cube_mat[2 - i][self.b_start + col]
+            self.cube_mat[i][self.d_start + col] = self.cube_mat[2 - i][self.b_start + (2 - col)]
         for i in range(0, 3):
-            self.cube_mat[i][self.b_start + col] = self.cube_mat[2 - i][self.u_start + col]
+            self.cube_mat[i][self.b_start + (2 - col)] = self.cube_mat[2 - i][self.u_start + col]
         for i in range(0, 3):
             self.cube_mat[i][self.u_start + col] = front_col[i]
     # Down Vertical Rotation
@@ -126,9 +126,9 @@ class RCube:
         for i in range(0, 3):
             self.cube_mat[i][self.f_start + col] = self.cube_mat[i][self.u_start + col]
         for i in range(0, 3):
-            self.cube_mat[i][self.u_start + col] = self.cube_mat[2 - i][self.b_start + col]
+            self.cube_mat[i][self.u_start + col] = self.cube_mat[2 - i][self.b_start + (2 - col)]
         for i in range(0, 3):
-            self.cube_mat[i][self.b_start + col] = self.cube_mat[2 - i][self.d_start + col]
+            self.cube_mat[i][self.b_start + (2 - col)] = self.cube_mat[2 - i][self.d_start + col]
         for i in range(0, 3):
             self.cube_mat[i][self.d_start + col] = front_col[i]
     # ============================================================
@@ -157,60 +157,80 @@ class RCube:
     # Full Rotation Function
     # http://www.rubiksplace.com/move-notations/
     def rotate(self, op):
-        if op == 'U':
+        if op == 'U' or op == 0:
             self.rotatef_c(5)
             self.left_horiz_rot(0)
-        elif op == 'U-':
+        elif op == 'U-' or op == 1:
             self.rotatef_cc(5)
             self.right_horiz_rot(0)
-        elif op == 'E':
+        elif op == 'E' or op == 2:
             self.right_horiz_rot(1)
-        elif op == 'E-':
+        elif op == 'E-' or op == 3:
             self.left_horiz_rot(1)
-        elif op == 'D':
+        elif op == 'D' or op == 4:
             self.rotatef_c(6)
             self.right_horiz_rot(2)
-        elif op == 'D-':
+        elif op == 'D-' or op == 5:
             self.rotatef_cc(6)
             self.left_horiz_rot(2)
-        elif op == 'R':
+        elif op == 'R' or op == 6:
             self.rotatef_c(2)
             self.up_vert_rot(2)
-        elif op == 'R-':
+        elif op == 'R-' or op == 7:
             self.rotatef_cc(2)
             self.down_vert_rot(2)
-        elif op == 'L':
+        elif op == 'L' or op == 8:
             self.rotatef_c(4)
             self.down_vert_rot(0)
-        elif op == 'L-':
+        elif op == 'L-' or op == 9:
             self.rotatef_cc(4)
             self.up_vert_rot(0)
-        elif op == 'M':
+        elif op == 'M' or op == 10:
             self.down_vert_rot(1)
-        elif op == 'M-':
+        elif op == 'M-' or op == 11:
             self.up_vert_rot(1)
-        elif op == 'F':
+        elif op == 'F' or op == 12:
             self.rotatef_c(1)
             self.c_vert_rot(0)
-        elif op == 'F-':
+        elif op == 'F-' or op == 13:
             self.rotatef_cc(1)
             self.cc_vert_rot(0)
-        elif op == 'B':
+        elif op == 'B' or op == 14:
             self.rotatef_c(3)
             self.cc_vert_rot(2)
-        elif op == 'B-':
+        elif op == 'B-' or op == 15:
             self.rotatef_cc(3)
             self.c_vert_rot(2)
-        elif op == 'S':
+        elif op == 'S' or op == 16:
             self.c_vert_rot(1)
-        elif op == 'S-':
+        elif op == 'S-' or op == 17:
             self.cc_vert_rot(1)
         else:
             print(op, "is an invalid operation")
     # Run List
     def run_list(self, op_list):
         for op in op_list:
+            print(op)
             self.rotate(op)
+            self.print_colors()
+    def print_colors(self):
+        # this function is for testing only
+        for i in range(0, 3):
+            for j in range(0, 18):
+                if (self.cube_mat[i][j] == 1):
+                    print('R', end=' ')
+                elif (self.cube_mat[i][j] == 2):
+                    print('Y', end=' ')
+                elif (self.cube_mat[i][j] == 3):
+                    print('O', end=' ')
+                elif (self.cube_mat[i][j] == 4):
+                    print('W', end=' ')
+                elif (self.cube_mat[i][j] == 5):
+                    print('B', end=' ')
+                elif (self.cube_mat[i][j] == 6):
+                    print('G', end=' ')
+            print()
+        print()
 # end class
 
 # some tests
@@ -218,6 +238,4 @@ my_cube = RCube()
 print(my_cube.calc_fit())
 my_list = ['U', 'R', 'L' , 'D', 'F', 'B', 'F-', 'R-', 'L-', 'B-', 'D-', 'U-', 'S', 'E', 'M', 'S-', 'M-', 'E-']
 my_cube.run_list(my_list)
-my_cube.print_cube()
-
 
