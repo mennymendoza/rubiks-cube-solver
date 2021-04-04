@@ -3,12 +3,12 @@ import random
 import time
 
 # Constants
-NUM_SHUFFLES = 700
-LIST_SIZE = 50
-POPULATION_SIZE = 100
-NUM_ITER = 60
-RAND_RESET_PROB = 0.8
-PROP_CONSTANT = 1
+NUM_SHUFFLES = 700 # Number of random operations done on cube in initial shuffle
+LIST_SIZE = 50 # Number of operations for each genotype
+POPULATION_SIZE = 100 # Fixed number of operations in population
+NUM_ITER = 5000 # Number of generations
+RAND_RESET_PROB = 0.2 # Probability of flipping an operation to a random operation
+PROP_CONSTANT = POPULATION_SIZE / 10 # Value multiplied to selection probability to increase/decrease chance of getting picked.
 
 def gen_sga_sol():
     # Cube Initialization
@@ -39,7 +39,7 @@ def gen_sga_sol():
         for g in population:
             (f, _) = g
             prob = float(f / sum_f)
-            if (PROP_CONSTANT*random.random() < prob):
+            if (random.random() < PROP_CONSTANT*prob):
                 parents.append(g)
 
         # Generate Children from Parents
