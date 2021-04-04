@@ -6,9 +6,9 @@ import time
 NUM_SHUFFLES = 700
 LIST_SIZE = 50
 POPULATION_SIZE = 100
-NUM_ITER = 5
+NUM_ITER = 60
 RAND_RESET_PROB = 0.8
-PROP_CONSTANT = 0.9
+PROP_CONSTANT = 1
 
 def gen_sga_sol():
     # Cube Initialization
