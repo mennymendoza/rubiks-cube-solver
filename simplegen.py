@@ -2,6 +2,9 @@ import rcube as cb
 import random
 import time
 
+# TODO: add a check when fitness = 54
+# TODO: add crossovers
+
 # CONSTANTS
 # Number of Shuffles: Number of random operations done on cube in initial shuffling
 NUM_SHUFFLES = 700
