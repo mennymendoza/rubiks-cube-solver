@@ -23,7 +23,7 @@ def gen_sga_sol():
     my_cube = cb.RCube()
     for _ in range(0, NUM_SHUFFLES):
         my_cube.rotate(random.randrange(0, 18))
-    og_state = my_cube.cube_mat
+    shuff_state = my_cube.cube_mat
     my_cube.print_colors()
 
     # Generates Initial Population
@@ -33,7 +33,7 @@ def gen_sga_sol():
         genotype = []
         for _ in range(0, LIST_SIZE):
             genotype.append(random.randrange(0, 18))
-        my_cube.cube_mat = og_state
+        my_cube.cube_mat = shuff_state
         population.append((my_cube.run_list(genotype), genotype))
     
     # Main Loop
@@ -57,7 +57,7 @@ def gen_sga_sol():
             for c in range(0, len(child)):
                 if random.random() < RAND_RESET_PROB:
                     child[c] = random.randrange(0, 18)
-            my_cube.cube_mat = og_state
+            my_cube.cube_mat = shuff_state
             children.append((my_cube.run_list(child), child))
 
         # Update Population
