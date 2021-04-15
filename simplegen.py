@@ -81,10 +81,13 @@ def gen_sga_sol():
     return population
 # end def
 
+# Executes SGA algorithm and records execution time
 start_time = time.time()
 final_pop = gen_sga_sol()
 exec_time = time.time() - start_time
-print(len(final_pop))
+
+# Prints final population output + execution time
+print('Population Size:', len(final_pop), '\n----------------')
 for geno in final_pop:
     (fit, op_list) = geno
     print('Op List:', end=' ')
