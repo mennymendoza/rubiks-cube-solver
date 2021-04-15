@@ -247,6 +247,12 @@ class RCube:
                     print('G', end=' ')
             print()
         print()
+    def num_to_op(self, op):
+        if (op < 0 or op > 17):
+            print('invalid operation')
+        else:
+            op_map = ['U', '-U', 'E', '-E', 'D', '-D', 'R', '-R', 'L', '-L', 'M', '-M', 'F', '-F', 'B', '-B', 'S', '-S']
+            return op_map[op]
 # end class
 
 

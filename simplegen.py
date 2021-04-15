@@ -2,6 +2,9 @@ import rcube as cb
 import random
 import time
 
+# TODO: add a check when fitness = 54
+# TODO: add crossovers
+
 # CONSTANTS
 # Number of Shuffles: Number of random operations done on cube in initial shuffling
 NUM_SHUFFLES = 700
@@ -17,10 +20,12 @@ RAND_RESET_PROB = 0.2
 # chance of a genotype getting picked to be a parent
 PROP_CONSTANT = POPULATION_SIZE / 10
 
+# Cube Object Initialization
+my_cube = cb.RCube()
+
 def gen_sga_sol():
     # Cube Initialization
     random.seed(time.time())
-    my_cube = cb.RCube()
     for _ in range(0, NUM_SHUFFLES):
         my_cube.rotate(random.randrange(0, 18))
     shuff_state = my_cube.cube_mat
@@ -67,6 +72,12 @@ def gen_sga_sol():
             population.pop(0)
             population.append(children[0])
             children.pop(0)
+        
+        for gene in population:
+            (f, _) = gene
+            if f == 54:
+                print('Solution found!')
+                return population
     return population
 # end def
 
@@ -75,7 +86,11 @@ final_pop = gen_sga_sol()
 exec_time = time.time() - start_time
 print(len(final_pop))
 for geno in final_pop:
-    print(geno)
+    (fit, op_list) = geno
+    print('Op List:', end=' ')
+    for op in op_list:
+        print(my_cube.num_to_op(op), end=' ')
+    print('\nFitness:\n', fit)
 print('Execution Time:', exec_time, 'seconds')
 
 
