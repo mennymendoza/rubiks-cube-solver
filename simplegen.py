@@ -90,7 +90,7 @@ for geno in final_pop:
     print('Op List:', end=' ')
     for op in op_list:
         print(my_cube.num_to_op(op), end=' ')
-    print('\nFitness:\n', fit)
+    print('\nFitness:', fit, '\n')
 print('Execution Time:', exec_time, 'seconds')
 
 
