@@ -20,10 +20,12 @@ RAND_RESET_PROB = 0.2
 # chance of a genotype getting picked to be a parent
 PROP_CONSTANT = POPULATION_SIZE / 10
 
+# Cube Object Initialization
+my_cube = cb.RCube()
+
 def gen_sga_sol():
     # Cube Initialization
     random.seed(time.time())
-    my_cube = cb.RCube()
     for _ in range(0, NUM_SHUFFLES):
         my_cube.rotate(random.randrange(0, 18))
     shuff_state = my_cube.cube_mat
@@ -78,7 +80,12 @@ final_pop = gen_sga_sol()
 exec_time = time.time() - start_time
 print(len(final_pop))
 for geno in final_pop:
-    print(geno)
+    (fit, op_list) = geno
+    print('Fitness:', fit)
+    print('Op List:', end=' ')
+    for op in op_list:
+        print(my_cube.num_to_op(op), end=' ')
+    print('\n')
 print('Execution Time:', exec_time, 'seconds')
 
 
