@@ -72,6 +72,12 @@ def gen_sga_sol():
             population.pop(0)
             population.append(children[0])
             children.pop(0)
+        
+        for gene in population:
+            (f, _) = gene
+            if f == 54:
+                print('Solution found!')
+                return population
     return population
 # end def
 
@@ -81,11 +87,10 @@ exec_time = time.time() - start_time
 print(len(final_pop))
 for geno in final_pop:
     (fit, op_list) = geno
-    print('Fitness:', fit)
     print('Op List:', end=' ')
     for op in op_list:
         print(my_cube.num_to_op(op), end=' ')
-    print('\n')
+    print('\nFitness:\n', fit)
 print('Execution Time:', exec_time, 'seconds')
 
 
