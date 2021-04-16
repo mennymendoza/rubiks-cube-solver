@@ -4,6 +4,7 @@ import time
 
 # TODO: add a check when fitness = 54
 # TODO: add crossovers
+# TODO: take more children
 
 # CONSTANTS
 # Number of Shuffles: Number of random operations done on cube in initial shuffling
