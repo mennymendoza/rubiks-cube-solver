@@ -24,6 +24,7 @@ PROP_CONSTANT = POPULATION_SIZE / 10
 # Cube Object Initialization
 my_cube = cb.RCube()
 
+# Generate Simple Genetic Algorithm Solution
 def gen_sga_sol():
     # Cube Initialization
     random.seed(time.time())

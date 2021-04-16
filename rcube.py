@@ -247,6 +247,8 @@ class RCube:
                     print('G', end=' ')
             print()
         print()
+    # Number to Op
+    # Takes an integer between 0 and 17 and returns the corresponding cube notation as a string.
     def num_to_op(self, op):
         if (op < 0 or op > 17):
             print('invalid operation')
