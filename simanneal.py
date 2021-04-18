@@ -9,7 +9,7 @@ TEMP_CYCLES = 1000
 # Number of Shuffles: Number of random operations done on cube in initial shuffling
 NUM_SHUFFLES = 700
 # Iterations per Temperature
-ITER_PER_TEMP = 5
+ITER_PER_TEMP = 1
 # Max Temperature
 INIT_TEMP = 5000
 
@@ -35,8 +35,8 @@ def gen_sa_sol():
                 print('solution found!')
                 return
             delta = old_fitness - new_fitness
-            prob_acc = (math.e)**(delta/temp)
-            if (new_fitness <= old_fitness or random.random() < prob_acc):
+            prob_acc = (math.e)**(-delta/temp)
+            if (old_fitness <= new_fitness or random.random() < prob_acc):
                 print(new_fitness, ' accepted')
             else:
                 my_cube.cube_mat = old_state
