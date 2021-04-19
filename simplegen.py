@@ -5,6 +5,9 @@ import time
 # TODO: add a check when fitness = 54
 # TODO: add crossovers
 # TODO: take more children
+# What I think I'm doing wrong is taking the fittest parents, not the parents that
+# generated the fittest children. I actually don't know if this will work due to the
+# nature of the Rubik's Cube.
 
 # CONSTANTS
 # Number of Shuffles: Number of random operations done on cube in initial shuffling
