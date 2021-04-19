@@ -38,6 +38,7 @@ def gen_sa_sol(init_temp):
             new_list = []
             
             # Generate New Solution
+            # TODO: Right now it's a random walk. Need to apply mutations to make this work.
             for _ in range(0, LIST_SIZE):
                 new_list.append(random.randrange(0, 18))
             my_cube.cube_mat = shuff_state
