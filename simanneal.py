@@ -11,7 +11,7 @@ NUM_SHUFFLES = 700
 # Iterations per Temperature
 ITER_PER_TEMP = 1
 # List Size
-LIST_SIZE = 40
+LIST_SIZE = 50
 # Number of Swaps
 NUM_SWAPS = 2
 # Number of Resets
