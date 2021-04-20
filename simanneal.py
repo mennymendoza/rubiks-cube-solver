@@ -37,9 +37,6 @@ def gen_sa_sol(init_temp):
 
     # Main Loop
     for t in range(0, TEMP_CYCLES):
-        # Prints t every 1000 cycles
-        if t % 1000 == 0:
-            print('t =', t)
 
         # Temp Function
         temp = init_temp - (0.00002*t)
@@ -78,7 +75,6 @@ def gen_sa_sol(init_temp):
             delta = f0 - f1
             prob_acc = (math.e)**(-delta/temp)
             if (f0 <= f1 or random.random() < prob_acc):
-                print(f1, 'accepted!')
                 solution = (f1, new_list)
     print('No solution found at T =', init_temp)
 # end
