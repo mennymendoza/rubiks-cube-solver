@@ -4,6 +4,10 @@ import time
 
 # TODO: add a check when fitness = 54
 # TODO: add crossovers
+# TODO: take more children
+# What I think I'm doing wrong is taking the fittest parents, not the parents that
+# generated the fittest children. I actually don't know if this will work due to the
+# nature of the Rubik's Cube.
 
 # CONSTANTS
 # Number of Shuffles: Number of random operations done on cube in initial shuffling
@@ -23,6 +27,7 @@ PROP_CONSTANT = POPULATION_SIZE / 10
 # Cube Object Initialization
 my_cube = cb.RCube()
 
+# Generate Simple Genetic Algorithm Solution
 def gen_sga_sol():
     # Cube Initialization
     random.seed(time.time())
@@ -81,16 +86,19 @@ def gen_sga_sol():
     return population
 # end def
 
+# Executes SGA algorithm and records execution time
 start_time = time.time()
 final_pop = gen_sga_sol()
 exec_time = time.time() - start_time
-print(len(final_pop))
+
+# Prints final population output + execution time
+print('Population Size:', len(final_pop), '\n----------------')
 for geno in final_pop:
     (fit, op_list) = geno
     print('Op List:', end=' ')
     for op in op_list:
         print(my_cube.num_to_op(op), end=' ')
-    print('\nFitness:\n', fit)
+    print('\nFitness:', fit, '\n')
 print('Execution Time:', exec_time, 'seconds')
 
 

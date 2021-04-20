@@ -1,48 +1,87 @@
-from hashlib import new
 import rcube as cb
 import random
 import time
 import math
+import copy
 
 # CONSTANTS
 TEMP_CYCLES = 100000
 # Number of Shuffles: Number of random operations done on cube in initial shuffling
 NUM_SHUFFLES = 700
 # Iterations per Temperature
-ITER_PER_TEMP = 5
-# Max Temperature
-INIT_TEMP = 10
+ITER_PER_TEMP = 1
+# List Size
+LIST_SIZE = 50
+# Number of Swaps
+NUM_SWAPS = 2
+# Number of Resets
+RAND_RESET_PROB = 0.002
 
 # Generate Simulated Annealing Solution
-def gen_sa_sol():
+def gen_sa_sol(init_temp):
+
     # Cube Initialization
     random.seed(time.time())
     my_cube = cb.RCube()
+
+    # Shuffling Cube
     for _ in range(0, NUM_SHUFFLES):
         my_cube.rotate(random.randrange(0, 18))
-    my_cube.print_colors()
+    shuff_state = my_cube.cube_mat
 
-    # Temp Initialization
-    temp = INIT_TEMP
+    # Initialize Solution
+    op_list = []
+    for z in range(0, LIST_SIZE):
+        op_list.append(z % 18)
+    solution = (my_cube.run_list(op_list), op_list)
 
-    for k in range(0, TEMP_CYCLES):
-        temp = temp / (1 + math.log10(k+1))
+    # Main Loop
+    for t in range(0, TEMP_CYCLES):
+        # Prints t every 1000 cycles
+        if t % 1000 == 0:
+            print('t =', t)
+
+        # Temp Function
+        temp = init_temp - (0.00002*t)
         if (temp <= 0):
-            break
+            print('Temperature frozen.')
+            return
+
+        # Constant Temp Loop
         for _ in (0, ITER_PER_TEMP):
-            old_state = my_cube.cube_mat
-            old_fitness = my_cube.calc_fit()
-            my_cube.rotate(random.randrange(0, 18))
-            new_fitness = my_cube.calc_fit()
-            delta = old_fitness - new_fitness
-            if (new_fitness <= old_fitness):
-                print(new_fitness, ' accepted')
-            elif (random.random() < ((math.e)**(delta/temp))):
-                print(new_fitness, ' accepted anyway')
-            else:
-                my_cube.cube_mat = old_state
-                print('no changes made')
-            print('---------------')
+            (f0, old_list) = solution
+            new_list = copy.deepcopy(old_list)
+
+            # Generate new solution
+            # Swap Mutation
+            for _ in range(0, NUM_SWAPS):
+                idx = random.randrange(0, LIST_SIZE - 1)
+                temp_val = new_list[idx]
+                new_list[idx] = new_list[idx + 1]
+                new_list[idx + 1] = temp_val
+            
+            # Random Reset Mutation
+            for z in range(0, LIST_SIZE):
+                if (random.random() < RAND_RESET_PROB):
+                    new_list[z] = random.randrange(0, 18)
+            
+            # Calculates new fitness
+            my_cube.cube_mat = shuff_state
+            f1 = my_cube.run_list(new_list)
+
+            # Check to see if found solution
+            if (f1 == 54):
+                print('SOLUTION FOUND at T =', init_temp)
+                return
+            
+            # Decides whether to accept new solution
+            delta = f0 - f1
+            prob_acc = (math.e)**(-delta/temp)
+            if (f0 <= f1 or random.random() < prob_acc):
+                print(f1, 'accepted!')
+                solution = (f1, new_list)
+    print('No solution found at T =', init_temp)
 # end
 
-gen_sa_sol()
+
+gen_sa_sol(2)
