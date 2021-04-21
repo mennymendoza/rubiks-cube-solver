@@ -3,16 +3,9 @@ import random
 import time
 import copy
 
-# TODO: add a check when fitness = 54
-# TODO: add crossovers
-# TODO: take more children
-# What I think I'm doing wrong is taking the fittest parents, not the parents that
-# generated the fittest children. I actually don't know if this will work due to the
-# nature of the Rubik's Cube.
-
 # CONSTANTS
 # Number of Shuffles: Number of random operations done on cube in initial shuffling
-NUM_SHUFFLES = 700
+NUM_SHUFFLES = 22
 # List Size: Number of operations in each genotype
 LIST_SIZE = 22
 # Population Size: Number of genes in fixed population
@@ -20,9 +13,9 @@ POPULATION_SIZE = 1000
 # Number of Iterations: Number of generations
 NUM_ITER = 25000
 # Random Resest Probability: Probability of flipping an operation to another random operation
-RAND_RESET_PROB = 0.15
+RAND_RESET_PROB = 0.05
 # Number of Swaps
-NUM_SWAPS = 3
+NUM_SWAPS = 2
 # Proportionality Constant: Value multiplied to selection probability to increase/decrease
 # chance of a genotype getting picked to be a parent
 PROP_CONSTANT = POPULATION_SIZE / 10
@@ -51,6 +44,7 @@ def gen_sga_sol():
     # Main Loop
     for i in range(0, NUM_ITER):
         print('Iter:', i)
+        
         # Select Parents
         parents = []
         sum_f = 0
@@ -68,16 +62,20 @@ def gen_sga_sol():
         for p in parents:
             (_, p_list) = p
             child_list = copy.deepcopy(p_list)
+            
             # Random Reset Mutation
             for c in range(0, len(child_list)):
                 if random.random() < RAND_RESET_PROB:
                     child_list[c] = random.randrange(0, 18)
+            
             # Swap Mutation
             for _ in range(0, NUM_SWAPS):
                 idx = random.randrange(0, LIST_SIZE - 1)
                 temp_val = child_list[idx]
                 child_list[idx] = child_list[idx + 1]
                 child_list[idx + 1] = temp_val
+            
+            # Find fitness of child
             my_cube.cube_mat = shuff_state
             child_fit = my_cube.run_list(child_list)
             if child_fit == 54:
