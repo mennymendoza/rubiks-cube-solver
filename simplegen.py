@@ -53,8 +53,8 @@ def gen_sga_sol():
             sum_f += f
         for g in population:
             (f, _) = g
-            prob = float(f / sum_f)
-            if (random.random() < PROP_CONSTANT*prob):
+            prob = float(PROP_CONSTANT * f / sum_f)
+            if (random.random() < prob):
                 parents.append(g)
 
         # Generate Children from Parents

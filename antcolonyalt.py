@@ -4,14 +4,14 @@ import time
 import copy
 
 # CONSTANTS
-NUM_ANTS = 1000
+NUM_ANTS = 100
 LIST_SIZE = 50
 NUM_SHUFFLES = 22
-NUM_STEPS = 500
+NUM_STEPS = 5000
 RAND_RESET_PROB = 0.01
 NUM_SWAPS = 2
-ALPHA = 1
-BETA = 3
+ALPHA = 2
+BETA = 2
 RHO = 0.7
 
 def gen_aco_sol():
