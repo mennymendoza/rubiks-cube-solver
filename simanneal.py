@@ -7,11 +7,11 @@ import copy
 # CONSTANTS
 TEMP_CYCLES = 100000
 # Number of Shuffles: Number of random operations done on cube in initial shuffling
-NUM_SHUFFLES = 700
+NUM_SHUFFLES = 22
 # Iterations per Temperature
 ITER_PER_TEMP = 1
 # List Size
-LIST_SIZE = 22
+LIST_SIZE = 50
 # Number of Swaps
 NUM_SWAPS = 2
 # Number of Resets
