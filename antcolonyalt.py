@@ -7,11 +7,11 @@ import copy
 NUM_ANTS = 1000
 LIST_SIZE = 50
 NUM_SHUFFLES = 22
-NUM_STEPS = 5000
+NUM_STEPS = 500
 RAND_RESET_PROB = 0.01
 NUM_SWAPS = 2
-ALPHA = 2
-BETA = 5
+ALPHA = 1
+BETA = 3
 RHO = 0.7
 
 def gen_aco_sol():
@@ -35,7 +35,10 @@ def gen_aco_sol():
         f = my_cube.run_list(pos_sol)
         colony.append((f, copy.deepcopy(pos_sol)))
     
-    for _ in range(0, NUM_STEPS):
+    # MAIN LOOP
+    for s in range(0, NUM_STEPS):
+        print('step:', s)
+
         all_trans = []
         for ant in colony:
             neighbor = copy.deepcopy(ant)

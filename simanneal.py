@@ -11,7 +11,7 @@ NUM_SHUFFLES = 22
 # Iterations per Temperature
 ITER_PER_TEMP = 1
 # List Size
-LIST_SIZE = 50
+LIST_SIZE = 25
 # Number of Swaps
 NUM_SWAPS = 2
 # Number of Resets
@@ -38,8 +38,11 @@ def gen_sa_sol(init_temp):
     # Main Loop
     for t in range(0, TEMP_CYCLES):
 
+        if t % 1000 == 0:
+            print('t =', t)
+
         # Temp Function
-        temp = init_temp - (0.00002*t)
+        temp = init_temp * (0.999983**t)
         if (temp <= 0):
             print('Temperature frozen.')
             return
@@ -75,6 +78,7 @@ def gen_sa_sol(init_temp):
             delta = f0 - f1
             prob_acc = (math.e)**(-delta/temp)
             if (f0 <= f1 or random.random() < prob_acc):
+                print(f1, 'accepted!')
                 solution = (f1, new_list)
     print('No solution found at T =', init_temp)
 # end
