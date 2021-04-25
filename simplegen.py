@@ -2,6 +2,7 @@ import rcube as cb
 import random
 import time
 import copy
+import numpy as np
 
 # CONSTANTS
 # Number of Shuffles: Number of random operations done on cube in initial shuffling
@@ -40,7 +41,7 @@ def gen_sga_sol():
             genotype.append(random.randrange(0, 18))
         my_cube.cube_mat = shuff_state
         population.append((my_cube.run_list(genotype), genotype))
-    
+
     # Main Loop
     for i in range(0, NUM_ITER):
         print('Iter:', i)
@@ -63,12 +64,12 @@ def gen_sga_sol():
             (_, p_list) = p
             child_list = copy.deepcopy(p_list)
             
-            # Random Reset Mutation
-            for c in range(0, len(child_list)):
+            # Random Reset Mutation # TODO: use numpy
+            for c in range(len(child_list)):
                 if random.random() < RAND_RESET_PROB:
                     child_list[c] = random.randrange(0, 18)
             
-            # Swap Mutation
+            # Swap Mutation # TODO: a,b = b,a play with that
             for _ in range(0, NUM_SWAPS):
                 idx = random.randrange(0, LIST_SIZE - 1)
                 temp_val = child_list[idx]
