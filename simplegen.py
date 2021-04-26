@@ -10,7 +10,7 @@ NUM_SHUFFLES = 22
 # List Size: Number of operations in each genotype
 LIST_SIZE = 50
 # Population Size: Number of genes in fixed population
-POPULATION_SIZE = 1000
+POPULATION_SIZE = 100
 # Number of Iterations: Number of generations
 NUM_ITER = 6000
 # Random Resest Probability: Probability of flipping an operation to another random operation
@@ -46,35 +46,30 @@ def gen_sga_sol():
     for i in range(0, NUM_ITER):
         print('Iter:', i)
         
-        # Select Parents
-        parents = []
+        # Roulette Wheel Selection
         sum_f = 0
         for g in population:
             (f, _) = g
             sum_f += f
-        for g in population:
-            (f, _) = g
-            prob = float(PROP_CONSTANT * f / sum_f)
-            if (random.random() < prob):
-                parents.append(g)
+        prob_dist = [float(g[0] / sum_f) for g in population]
+        mate_pool_idx = np.random.choice(len(prob_dist), len(prob_dist), p=prob_dist).tolist()
+        mate_pool = [copy.deepcopy(population[idx]) for idx in mate_pool_idx]
 
         # Generate Children from Parents
         children = []
-        for p in parents:
+        for p in mate_pool:
             (_, p_list) = p
             child_list = copy.deepcopy(p_list)
-            
+
             # Random Reset Mutation # TODO: use numpy
             for c in range(len(child_list)):
                 if random.random() < RAND_RESET_PROB:
                     child_list[c] = random.randrange(0, 18)
             
-            # Swap Mutation # TODO: a,b = b,a play with that
+            # Swap Mutation
             for _ in range(0, NUM_SWAPS):
                 idx = random.randrange(0, LIST_SIZE - 1)
-                temp_val = child_list[idx]
-                child_list[idx] = child_list[idx + 1]
-                child_list[idx + 1] = temp_val
+                child_list[idx], child_list[idx+1] = child_list[idx+1], child_list[idx]
             
             # Find fitness of child
             my_cube.cube_mat = shuff_state
