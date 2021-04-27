@@ -93,10 +93,6 @@ def gen_aco_sol():
             pher[op][pos] += RHO
     return colony
 
-
-
-
-
 colony = gen_aco_sol()
 colony.sort()
 for ant in colony:

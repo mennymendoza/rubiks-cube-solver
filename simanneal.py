@@ -5,17 +5,17 @@ import math
 import copy
 
 # CONSTANTS
-TEMP_CYCLES = 100000
+TEMP_CYCLES = 10000
 # Number of Shuffles: Number of random operations done on cube in initial shuffling
 NUM_SHUFFLES = 22
 # Iterations per Temperature
 ITER_PER_TEMP = 1
 # List Size
-LIST_SIZE = 25
+LIST_SIZE = 50
 # Number of Swaps
 NUM_SWAPS = 2
 # Number of Resets
-RAND_RESET_PROB = 0.002
+RAND_RESET_PROB = 0.2
 
 # Generate Simulated Annealing Solution
 def gen_sa_sol(init_temp):
@@ -42,7 +42,7 @@ def gen_sa_sol(init_temp):
             print('t =', t)
 
         # Temp Function
-        temp = init_temp * (0.999983**t)
+        temp = init_temp * (0.99982**t)
         if (temp <= 0):
             print('Temperature frozen.')
             return
@@ -84,4 +84,4 @@ def gen_sa_sol(init_temp):
 # end
 
 
-gen_sa_sol(2)
+gen_sa_sol(1)
