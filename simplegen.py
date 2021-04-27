@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 # Number of Shuffles: Number of random operations done on cube in initial shuffling
 NUM_SHUFFLES = 22
 # List Size: Number of operations in each genotype
-LIST_SIZE = 50
+LIST_SIZE = 70
 # Population Size: Number of genes in fixed population
 POPULATION_SIZE = 100
 # Number of Iterations: Number of generations
@@ -110,7 +110,7 @@ def gen_sga_sol():
             if child_f0 == 54:
                 print('Solution Found!')
                 return child_f0
-            elif child_f0 != f0 and child_f0 != f1:
+            elif child_f0 >= f0 and child_f0 >= f1 and not (child_f0, list_1) in mate_pool:
                 mate_pool.append((child_f0, list_1))
 
             # Decide whether to add second child to mate pool
@@ -119,7 +119,7 @@ def gen_sga_sol():
             if child_f1 == 54:
                 print('Solution Found!')
                 return child_f1
-            elif child_f1 != f0 and child_f1 != f1:
+            elif child_f1 >= f0 and child_f1 >= f1 and not (child_f1, list_2) in mate_pool:
                 mate_pool.append((child_f1, list_2))
 
         # Adding top 10% of the population
