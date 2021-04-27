@@ -71,8 +71,8 @@ def gen_sga_sol():
             list_2 = copy.deepcopy(mate_pool[2 * idx + 1])[1]
 
             # Mutation / Recombination
+            # Crossover Recombination
             if random.random() < CROSSOVER_PROB:
-                # Crossover Recombination
                 for z in range(random.randrange(len(list_1))):
                     list_1[z], list_2[z] = list_2[z], list_1[z]
             
