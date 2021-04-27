@@ -46,7 +46,7 @@ def gen_sa_sol(init_temp):
             print('t =', t)
 
         # Temp Function
-        temp = init_temp * (0.99982**t)
+        temp = init_temp * (0.9998**t)
         if (temp <= 0):
             print('Temperature frozen.')
             return
@@ -101,4 +101,4 @@ def gen_sa_sol(init_temp):
 # end
 
 
-gen_sa_sol(1)
+gen_sa_sol(2.2)
