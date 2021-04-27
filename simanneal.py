@@ -3,6 +3,7 @@ import random
 import time
 import math
 import copy
+import matplotlib.pyplot as plt
 
 # CONSTANTS
 TEMP_CYCLES = 10000
@@ -16,6 +17,9 @@ LIST_SIZE = 50
 NUM_SWAPS = 2
 # Number of Resets
 RAND_RESET_PROB = 0.2
+
+fit_vals = []
+accptTempCycle = []
 
 # Generate Simulated Annealing Solution
 def gen_sa_sol(init_temp):
@@ -48,7 +52,7 @@ def gen_sa_sol(init_temp):
             return
 
         # Constant Temp Loop
-        for _ in (0, ITER_PER_TEMP):
+        for _ in range(0, ITER_PER_TEMP):
             (f0, old_list) = solution
             new_list = copy.deepcopy(old_list)
 
@@ -80,6 +84,19 @@ def gen_sa_sol(init_temp):
             if (f0 <= f1 or random.random() < prob_acc):
                 print(f1, 'accepted!')
                 solution = (f1, new_list)
+                fit_vals.append(f1)             # Append fitness into fit_vals
+                accptTempCycle.append(t)        # Append steps into accptSteps
+            else:
+                fit_vals.append(f0)
+                accptTempCycle.append(t)
+
+    print('Length of steps -> ', len(accptTempCycle))
+    print('Length of fit vals -> ', len(fit_vals))
+    plt.title('Simmulated Annealing')
+    plt.xlabel('Temperature Cycles')
+    plt.ylabel('Fitness Values')
+    plt.plot(list(range(len(accptTempCycle))), fit_vals)
+    plt.show()
     print('No solution found at T =', init_temp)
 # end
 
