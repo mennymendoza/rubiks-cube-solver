@@ -48,7 +48,7 @@ def gen_sa_sol(init_temp):
             return
 
         # Constant Temp Loop
-        for _ in (0, ITER_PER_TEMP):
+        for _ in range(0, ITER_PER_TEMP):
             (f0, old_list) = solution
             new_list = copy.deepcopy(old_list)
 
