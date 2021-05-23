@@ -23,6 +23,10 @@ You can also print the cube using the alternate print_colors function. This assi
 
 `example_cube.print_colors()`
 
+You can check the *fitness* of the cube using the calc_fit function. This function simply counts up how many squares are in the correct position and returns the value. This is useful for measuring how close your cube is to being solved.
+
+`fitness = example_cube.calc_fit()`
+
 ### Modifying the Cube
 
 To perform a rotation on your cube (meaning to rotate a piece of the cube to change the appearance), use the rotate function. It takes either a number between 0 - 17 or a string containing Rubik's Cube move notation as an argument. However, note that instead of using an apostrophe (such as in U'), the function actually expects -U. The - sign is used in place of the prime and should be in front of the symbol. Here is a link for a site that explains cube notation: http://www.rubiksplace.com/move-notations/
@@ -42,10 +46,6 @@ or alternatively,
 `example_cube.run_list(['U', '-U', 'E', '-E', 'D'])`
 
 ### Other Useful Functions
-
-You can check the *fitness* of the cube using the calc_fit function. This function simply counts up how many squares are in the correct position and returns the value. This is useful for measuring how close your cube is to being solved.
-
-`fitness = example_cube.calc_fit()`
 
 If you want to reset quickly back to a solved cube, you can use the reset function.
 
