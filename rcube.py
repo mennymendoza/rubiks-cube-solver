@@ -1,7 +1,7 @@
 import math
 from re import L
 
-# Rubix Cube class to hold information about cube and perform operations
+# Rubik's Cube class to hold information about cube and perform operations
 class RCube:
     # initializes cube variables
     def __init__(self):
@@ -141,6 +141,7 @@ class RCube:
             self.cube_mat[i][self.l_start + (2 - col)] = self.cube_mat[2 - col][self.u_start + (2 - i)]
         for i in range(0, 3):
             self.cube_mat[2 - col][self.u_start + i] = right_col[i]
+    # all possible Rubik's Cube moves
     def op_u(self):
         self.rotatef_c(5)
         self.left_horiz_rot(0)
@@ -222,7 +223,13 @@ class RCube:
     def rotate(self, op):
         operation = op
         if isinstance(op, int):
+            if op < 0 or op > 17:
+                print('invalid operation')
+                return
             operation = self.op_mapping[op]
+        if not op in self.op_mapping:
+            print('invalid operation')
+            return
         op_function_map = {
             'U': self.op_u,
             '-U': self.op_u_reverse,
@@ -254,7 +261,6 @@ class RCube:
     # Print Colors
     # Assumes Red = 1, Yellow = 2, Orange = 3, White = 4, Blue = 5, and Green = 6
     def print_colors(self):
-        # this function is for testing only
         for i in range(0, 3):
             for j in range(0, 18):
                 if (self.cube_mat[i][j] == 1):
@@ -271,13 +277,6 @@ class RCube:
                     print('G', end=' ')
             print()
         print()
-    # Number to Op
-    # Takes an integer between 0 and 17 and returns the corresponding cube notation as a string.
-    def num_to_op(self, op):
-        if (op < 0 or op > 17):
-            print('invalid operation')
-        else:
-            return self.op_mapping[op]
 # end class
 
 
