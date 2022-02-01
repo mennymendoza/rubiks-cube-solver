@@ -1,4 +1,5 @@
 import math
+from re import L
 
 # Rubix Cube class to hold information about cube and perform operations
 class RCube:
@@ -33,6 +34,7 @@ class RCube:
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         ]
+        self.op_mapping = ['U', '-U', 'E', '-E', 'D', '-D', 'R', '-R', 'L', '-L', 'M', '-M', 'F', '-F', 'B', '-B', 'S', '-S']
     # Rotate Face Counter-Clockwise
     def rotatef_cc(self, face):
         if face < 1 or face > 6:
@@ -139,6 +141,54 @@ class RCube:
             self.cube_mat[i][self.l_start + (2 - col)] = self.cube_mat[2 - col][self.u_start + (2 - i)]
         for i in range(0, 3):
             self.cube_mat[2 - col][self.u_start + i] = right_col[i]
+    def op_u(self):
+        self.rotatef_c(5)
+        self.left_horiz_rot(0)
+    def op_u_reverse(self):
+        self.rotatef_cc(5)
+        self.right_horiz_rot(0)
+    def op_e(self):
+        self.right_horiz_rot(1)
+    def op_e_reverse(self):
+        self.left_horiz_rot(1)
+    def op_d(self):
+        self.rotatef_c(6)
+        self.right_horiz_rot(2)
+    def op_d_reverse(self):
+        self.rotatef_cc(6)
+        self.left_horiz_rot(2)
+    def op_r(self):
+        self.rotatef_c(2)
+        self.up_vert_rot(2)
+    def op_r_reverse(self):
+        self.rotatef_cc(2)
+        self.down_vert_rot(2)
+    def op_l(self):
+        self.rotatef_c(4)
+        self.down_vert_rot(0)
+    def op_l_reverse(self):
+        self.rotatef_cc(4)
+        self.up_vert_rot(0)
+    def op_m(self):
+        self.down_vert_rot(1)
+    def op_m_reverse(self):
+        self.up_vert_rot(1)
+    def op_f(self):
+        self.rotatef_c(1)
+        self.c_vert_rot(0)
+    def op_f_reverse(self):
+        self.rotatef_cc(1)
+        self.cc_vert_rot(0)
+    def op_b(self):
+        self.rotatef_c(3)
+        self.cc_vert_rot(2)
+    def op_b_reverse(self):
+        self.rotatef_cc(3)
+        self.c_vert_rot(2)
+    def op_s(self):
+        self.c_vert_rot(1)
+    def op_s_reverse(self):
+        self.cc_vert_rot(1)
     # ================== Public Code ===========================================
     # Reset Cube
     def reset(self):
@@ -170,56 +220,30 @@ class RCube:
     # This is the function that you should actually use to move the cube around.
     # See move notation link in README.md for how different moves affect the cube.
     def rotate(self, op):
-        if op == 'U' or op == 0:
-            self.rotatef_c(5)
-            self.left_horiz_rot(0)
-        elif op == '-U' or op == 1:
-            self.rotatef_cc(5)
-            self.right_horiz_rot(0)
-        elif op == 'E' or op == 2:
-            self.right_horiz_rot(1)
-        elif op == '-E' or op == 3:
-            self.left_horiz_rot(1)
-        elif op == 'D' or op == 4:
-            self.rotatef_c(6)
-            self.right_horiz_rot(2)
-        elif op == '-D' or op == 5:
-            self.rotatef_cc(6)
-            self.left_horiz_rot(2)
-        elif op == 'R' or op == 6:
-            self.rotatef_c(2)
-            self.up_vert_rot(2)
-        elif op == '-R' or op == 7:
-            self.rotatef_cc(2)
-            self.down_vert_rot(2)
-        elif op == 'L' or op == 8:
-            self.rotatef_c(4)
-            self.down_vert_rot(0)
-        elif op == '-L' or op == 9:
-            self.rotatef_cc(4)
-            self.up_vert_rot(0)
-        elif op == 'M' or op == 10:
-            self.down_vert_rot(1)
-        elif op == '-M' or op == 11:
-            self.up_vert_rot(1)
-        elif op == 'F' or op == 12:
-            self.rotatef_c(1)
-            self.c_vert_rot(0)
-        elif op == '-F' or op == 13:
-            self.rotatef_cc(1)
-            self.cc_vert_rot(0)
-        elif op == 'B' or op == 14:
-            self.rotatef_c(3)
-            self.cc_vert_rot(2)
-        elif op == '-B' or op == 15:
-            self.rotatef_cc(3)
-            self.c_vert_rot(2)
-        elif op == 'S' or op == 16:
-            self.c_vert_rot(1)
-        elif op == '-S' or op == 17:
-            self.cc_vert_rot(1)
-        else:
-            print(op, "is an invalid operation")
+        operation = op
+        if isinstance(op, int):
+            operation = self.op_mapping[op]
+        op_function_map = {
+            'U': self.op_u,
+            '-U': self.op_u_reverse,
+            'E': self.op_e,
+            '-E': self.op_e_reverse,
+            'D': self.op_d,
+            '-D': self.op_d_reverse,
+            'R': self.op_r,
+            '-R': self.op_r_reverse,
+            'L': self.op_l,
+            '-L': self.op_l_reverse,
+            'M': self.op_m,
+            '-M': self.op_m_reverse,
+            'F': self.op_f,
+            '-F': self.op_f_reverse,
+            'B': self.op_b,
+            '-B': self.op_b_reverse,
+            'S': self.op_s,
+            '-S': self.op_s_reverse
+        }
+        op_function_map[operation]()
     # Run List
     # Runs a list of operations, returning the fitness of the final state.
     def run_list(self, op_list):
@@ -253,8 +277,7 @@ class RCube:
         if (op < 0 or op > 17):
             print('invalid operation')
         else:
-            op_map = ['U', '-U', 'E', '-E', 'D', '-D', 'R', '-R', 'L', '-L', 'M', '-M', 'F', '-F', 'B', '-B', 'S', '-S']
-            return op_map[op]
+            return self.op_mapping[op]
 # end class
 
 
