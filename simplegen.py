@@ -134,7 +134,7 @@ def sga(input_cube, chrom_size=70, pop_size=100, num_iter=6000, rr_prob=0.4, num
         if not output_step:
             output_step = 10
         if iter % output_step == 0:
-            print("Iter: {} | Avg. Fitness: {}".format(iter, avg_f))
+            print(f"Iter: {iter} | Avg. Fitness: {avg_f}")
     return [], all_avg_fit, all_max_fit
 
 all_chrom_size = [50, 100]
@@ -168,6 +168,7 @@ for param in all_parameters:
     test_cube.print_colors()
     print("Params:", param)
     
+    # Running sga algorithm
     solution, all_avg_fit, all_max_fit = sga(test_cube, chrom_size=param['cs'], pop_size=param['ps'], num_iter=param['ni'], rr_prob=param['rr'], num_resets=param['nr'], num_swaps=param['ns'], cross_prob=param['cp'], parent_prop=param['pp'])
     
     # Saving avg graph fitness
@@ -175,6 +176,7 @@ for param in all_parameters:
     plt.savefig('graphs/avg/sga-average-{}-{}-{}-{}-{}-{}-{}-{}.png'.format(param['cs'], param['ps'], param['ni'], param['rr'], param['nr'], param['ns'], param['cp'], param['pp']))
     plt.close()
 
+    # Saving max graph fitness
     plt.plot(range(len(all_max_fit)), all_max_fit, label='max fitness')
     plt.savefig('graphs/max/sga-max-{}-{}-{}-{}-{}-{}-{}-{}.png'.format(param['cs'], param['ps'], param['ni'], param['rr'], param['nr'], param['ns'], param['cp'], param['pp']))
     plt.close()
