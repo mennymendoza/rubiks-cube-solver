@@ -224,11 +224,11 @@ class RCube:
         operation = op
         if isinstance(op, int):
             if op < 0 or op > 17:
-                print('invalid operation')
+                print('Invalid operation integer.')
                 return
             operation = self.op_mapping[op]
-        if not op in self.op_mapping:
-            print('invalid operation')
+        if not operation in self.op_mapping:
+            print('Invalid operation string.')
             return
         op_function_map = {
             'U': self.op_u,
