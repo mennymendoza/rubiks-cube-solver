@@ -130,22 +130,24 @@ def sga(input_cube, chrom_size=70, pop_size=100, num_iter=6000, rr_prob=0.4, num
         all_max_fit.append(max_f)
 
         # Prints out the iteration number.
-        output_step = int(num_iter / 1000)
+        num_outputs = 5
+        output_step = int(num_iter / num_outputs)
         if not output_step:
             output_step = 10
         if iter % output_step == 0:
-            print(f"Iter: {iter} | Avg. Fitness: {avg_f}")
+            print(f"Iter: {iter} | Avg. Fitness: {avg_f} | Max Fitness: {max_f}")
     return [], all_avg_fit, all_max_fit
 
-all_chrom_size = [50, 100]
-all_pop_size = [100, 200]
-all_num_iter = [2000, 4000, 6000]
+all_chrom_size = [50]
+all_pop_size = [100]
+all_num_iter = [2000, 4000]
 all_rr_prob = [0.5, 0.7, 0.9]
 all_cross_prob = [0.5, 0.7, 0.9]
 all_num_resets = [5, 50, 100]
 all_num_swaps = [5, 50, 100]
 all_parent_prop = [0.01, 0.02, 0.05, 0.10]
 
+# Mixing parameters
 all_parameters = [{'cs': cs, 'ps': ps, 'ni': ni, 'rr': rr, 'cp': cp, 'nr': nr, 'ns': ns, 'pp': pp} \
     for cs in all_chrom_size \
     for ps in all_pop_size \
@@ -156,6 +158,7 @@ all_parameters = [{'cs': cs, 'ps': ps, 'ni': ni, 'rr': rr, 'cp': cp, 'nr': nr, '
     for ns in all_num_swaps \
     for pp in all_parent_prop
     ]
+print("Number of tests:", len(all_parameters))
 
 for param in all_parameters:
     # Shuffling cube with 22 moves
@@ -173,11 +176,15 @@ for param in all_parameters:
     
     # Saving avg graph fitness
     plt.plot(range(len(all_avg_fit)), all_avg_fit, label='avg fitness')
+    plt.grid()
+    plt.legend()
     plt.savefig('graphs/avg/sga-average-{}-{}-{}-{}-{}-{}-{}-{}.png'.format(param['cs'], param['ps'], param['ni'], param['rr'], param['nr'], param['ns'], param['cp'], param['pp']))
     plt.close()
 
     # Saving max graph fitness
     plt.plot(range(len(all_max_fit)), all_max_fit, label='max fitness')
+    plt.grid()
+    plt.legend()
     plt.savefig('graphs/max/sga-max-{}-{}-{}-{}-{}-{}-{}-{}.png'.format(param['cs'], param['ps'], param['ni'], param['rr'], param['nr'], param['ns'], param['cp'], param['pp']))
     plt.close()
 
